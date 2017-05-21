@@ -5,7 +5,7 @@ behaviors to your robot.
 
 To get started, you should download and install
 [PyFirmata](https://github.com/tino/pyFirmata).  Once your robot arm is
-connected to your Arduino, launch the Arduino IDE and do
+connected to your Arduino, launch the Arduino IDE and upload the sketch in
 <b>File/Exmaples/Firmata/StandardFirmata</b>.  If you have a [Lynxmotion
 AL5](http://www.lynxmotion.com/c-124-al5a.aspx) arm (without wrist rotation)
 you should be able to run the <b>LynxmotionAL5.py</b> example right away. As
