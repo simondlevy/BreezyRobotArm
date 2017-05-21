@@ -19,10 +19,6 @@ You should have received a copy of the GNU Lesser General Public License
 along with this code.  If not, see <http:#www.gnu.org/licenses/>.
 '''
 
-import numpy as np
-import pyfirmata
-from time import sleep
-
 class Joint(object):
 
     def __init__(self, board, pin, start):
@@ -36,13 +32,15 @@ class Joint(object):
 
     def setTarget(self, target):
         self.target = target
+
+        # XXX need a better formula for step size, probably incorporating time
         self.stepsize = 2 if abs(target-self.angle) > 100 else 1
 
     def atTarget(self):
         return int(self.angle) >= int(self.target)
 
     def moveToTarget(self):
-        self.angle += self.stepsize*np.sign(self.target-self.angle) 
+        self.angle += self.stepsize * (-1 if self.target-self.angle < 0 else +1)
         self.servo.write(self.angle)
 
 class Arm(object):
