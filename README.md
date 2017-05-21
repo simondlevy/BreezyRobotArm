@@ -15,4 +15,9 @@ return it to its original position.  Because the arm will move immediately to
 the initial position at the start of the program, you should use caution when
 first running this program!
 
+You can install the library for access from other directories by doing
+<pre>
+  python3 setup.py install
+</pre>
+
 
