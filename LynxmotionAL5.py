@@ -22,7 +22,7 @@ along with this code.  If not, see <http:#www.gnu.org/licenses/>.
 '''
 
 import pyfirmata
-from time import sleep
+import time
 
 from breezyrobotarm import Joint, Arm
 
@@ -86,7 +86,7 @@ class LynxmotionAL5(object):
 
             self.stepToTargets()
 
-            sleep(delayMsec/1000)
+            time.sleep(delayMsec/1000)
 
 # ====================================================================
 
@@ -115,7 +115,7 @@ if __name__ == '__main__':
     al5.moveTo((BASE_TARGET, SHOULDER_TARGET, ELBOW_TARGET, WRIST_TARGET, GRIPPER_TARGET))
 
     # return arm to starting position
-    sleep(1)
+    time.sleep(1)
     print('Returning to start')
     al5.returnToStart()
 
