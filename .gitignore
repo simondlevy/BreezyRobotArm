@@ -2,3 +2,4 @@ breezyrobotarm/__pycache__
 breezyrobotarm/*.pyc
 *.bak
 build
+*.pyc

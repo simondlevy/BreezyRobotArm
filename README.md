@@ -2,7 +2,7 @@ This repository contains a Python library and simple use-case for controlling a 
 an Arduino microcontroller.  By using standard Python (instead of C++ or MicroPython), the library allows 
 you to import and use other powerful Python libraries like [NumPy](http://www.numpy.org/) and 
 [OpenCV](http://opencv.org/) to add intelligent behaviors 
-(e.g, [inverse kinematics](https://studywolf.wordpress.com/2013/04/11/inverse-kinematics-of-3-link-arm-with-constrained-minimization-in-python/) to your robot.  
+(e.g, [inverse kinematics](https://studywolf.wordpress.com/2013/04/11/inverse-kinematics-of-3-link-arm-with-constrained-minimization-in-python/)) to your robot.  
 
 To get started, you should download and install
 [PyFirmata](https://github.com/tino/pyFirmata).  Once your robot arm is

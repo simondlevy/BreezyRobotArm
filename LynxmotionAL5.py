@@ -28,39 +28,55 @@ from breezyrobotarm import Joint, Arm
 
 class LynxmotionAL5(object):
 
-    def __init__(self, board, pins=(4,5,6,7,8), starts=(120,180,90,0,140)):
-        self.base     = Joint(board, pins[0], starts[0])
-        self.arm      = Arm(board, pins[1:4], starts[1:4])
-        self.gripper  = Joint(board, pins[4], starts[4])
-        self.starts = starts
+    def __init__(self, board, pins=(4,5,6,7,8), startAngles=(120,180,90,0,140)):
+        '''
+        Creates a LynxmotionAL5 object, containing a base joint; a planar arm 
+        (shoulder joint, elbow joint, wrist joint); and a gripper Joint.
+        board       - a PyFirmata Board object
+        pins        - Arduino pins to which the arm's servos are connected
+        startAngles - initial servo angles (0 - 180 degrees)
+        Pins and angles should be specified in the order: base, shoulder, elbow, wrist, gripper
+        '''
+        self.base     = Joint(board, pins[0], startAngles[0])
+        self.arm      = Arm(board, pins[1:4], startAngles[1:4])
+        self.gripper  = Joint(board, pins[4], startAngles[4])
+        self.startAngles = startAngles
 
     def returnToStart(self):
-        self.setTargets(self.starts)
-        while True:
-            if self.atTargets():
-                break
-            self.stepToTargets()
+        '''
+        Returns the arm gently to its starting pose.
+        '''
+        self.moveTo(self.startAngles)
         
     def setTargets(self, targets):
+        '''
+        Sets the target angles (specified as a tuple of values 0-180) in the order: 
+        base, shoulder, eblow, wrist, gripper.
+        '''
         self.base.setTarget(targets[0])
         self.arm.setTargets(targets[1:4])
         self.gripper.setTarget(targets[4])
 
     def atTargets(self):
-
+        '''
+        Returns True if the arm's joints have reached the targets specified by LynxmotionAL5.setTargets(), 
+        false otherwise.
+        '''
         return self.base.atTarget() and self.arm.atTargets() and self.gripper.atTarget() 
 
-    def stepToTargets(self, delayMsec=50):
-
+    def stepToTargets(self):
+        '''
+        Move the the arm's joints one step toward the targets specified by LynxmotionAL5.setTargets().
+        '''
         self.base.moveToTarget()
         self.arm.moveToTargets()
         self.gripper.moveToTarget()
 
-        # Pause a bit to avoid jerky motion
-        sleep(delayMsec/1000)
-
-    def moveTo(self, targets):
-
+    def moveTo(self, targets, delayMsec=50):
+        '''
+        Moves the arm's joints to smoothly to the targets specified by LynxmotionAL5.setTargets().
+        delayMsec - milliseconds to pause between steps
+        '''
         self.setTargets(targets)
 
         while True:
@@ -70,6 +86,7 @@ class LynxmotionAL5(object):
 
             self.stepToTargets()
 
+            sleep(delayMsec/1000)
 
 # ====================================================================
 
